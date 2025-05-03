@@ -82,12 +82,26 @@ class AuthController extends Controller
 
     public function prepareJson(string $code, string $grandType): array
     {
-        return [
-            'client_id' => config('amoCrmAuth.integration_id'),
-            'client_secret' => config('amoCrmAuth.secret'),
-            'grant_type' => $grandType,
-            'code' => $code,
-            'redirect_uri' => config('amoCrmAuth.redirect')
-        ];
+        switch ($grandType) {
+            case 'refresh_token':
+                $result = [
+                    'client_id' => config('amoCrmAuth.integration_id'),
+                    'client_secret' => config('amoCrmAuth.secret'),
+                    'grant_type' => $grandType,
+                    'refresh_token' => $code,
+                    'redirect_uri' => config('amoCrmAuth.redirect')
+                ];
+                break;
+            case 'authorization_code':
+                $result = [
+                    'client_id' => config('amoCrmAuth.integration_id'),
+                    'client_secret' => config('amoCrmAuth.secret'),
+                    'grant_type' => $grandType,
+                    'code' => $code,
+                    'redirect_uri' => config('amoCrmAuth.redirect')
+                ];
+                break;
+        }
+        return $result;
     }
 }
