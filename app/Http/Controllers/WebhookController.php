@@ -28,18 +28,26 @@ class WebhookController extends Controller
 
             if (isset($request['leads'])) {
                 if (isset($request['leads']['add'])) {
-                    $this->addNoteToLeadOnCreate($request['leads']['add'][0]);
+                    foreach ($request['leads']['add'] as $lead) {
+                        $this->addNoteToLeadOnCreate($lead);
+                    }
                 }
                 if (isset($request['leads']['update'])) {
-                    $this->addNoteToLeadOnUpdate($request['leads']['update'][0]);
+                    foreach ($request['leads']['update'] as $lead) {
+                        $this->addNoteToLeadOnUpdate($lead);
+                    }
                 }
             }
             if ($request['contacts']) {
                 if (isset($request['contacts']['add'])) {
-                    $this->addNoteToContactOnCreate($request['contacts']['add'][0]);
+                    foreach ($request['contacts']['add'] as $contact) {
+                        $this->addNoteToContactOnCreate($contact);
+                    }
                 }
                 if (isset($request['contacts']['update'])) {
-                    $this->addNoteToContactOnUpdate($request['contacts']['update'][0]);
+                    foreach ($request['contacts']['update'] as $contact) {
+                        $this->addNoteToContactOnUpdate($contact);
+                    }
                 }
             }
 
