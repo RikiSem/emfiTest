@@ -9,6 +9,6 @@ Route::get('ping', function () {
     return response('ok', 200);
 });
 
-Route::post('auth', [AuthController::class, 'handler']);
+Route::any('auth', [AuthController::class, 'handler']);
 
 Route::post('webhook', [WebhookController::class, 'handler']);
